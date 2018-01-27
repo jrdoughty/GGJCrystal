@@ -36,7 +36,7 @@ class PlayScreen extends Screen
 			imgs.red1];
 		for(i in 0...7)
 		{
-			crystals.push(new Crystal(i, new Sprite(assets[i])));
+			crystals.push(new Crystal(i, new Sprite(assets[i]),function(){selectCrystal(i);}));
 			add(crystals[crystals.length-1]);
 		}
 		

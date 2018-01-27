@@ -6,16 +6,19 @@ import kha.math.Vector2;
 import kha.audio1.Audio;
 import kha.Assets;
 import sdg.graphics.Sprite;
+import util.Button;
+import haxe.Constraints.Function;
 
-class Crystal extends Object
+class Crystal extends Button
 {
 	public var value:Int = -1;
 	public static var valueToNotes:Array<String> = ["C","D","E","F","G","A","B"];
 	public var sprite:Sprite;
-	public function new(value = 0, sprite:Sprite)
+	public function new(value = 0, sprite:Sprite, delegate:Function)
 	{
-		super();
-		x = value * 100;
+		x = 20 + value * 135;
+		y = 600 - Math.abs(value-3)*100;
+		
 		height = 100;
 		width = 100;
 		this.value = value;
@@ -27,6 +30,7 @@ class Crystal extends Object
 		this.sprite.color.R = .9;
 		this.sprite.color.G = .9;
 		this.sprite.color.A = .7;
+		super(x,y, width, height, sprite,"",function(a:Int, b:Int, c:Int){delegate();});
 	}
 
 	public function select()
