@@ -24,7 +24,9 @@ class Chord extends Object
 			if(notes.indexOf(randomInt) == -1)
 			{
 				notes.push(randomInt);
-				Scheduler.addTimeTask(function(){Audio.play(Reflect.field(Assets.sounds, Crystal.valueToNotes[randomInt]));},1,5,0);
+				Scheduler.addTimeTask(function(){
+					Audio.play(Reflect.field(Assets.sounds, Crystal.valueToNotes[randomInt]));
+				},1,5,0);
 			}
 		}
 		notes.sort(function(a, b):Int {

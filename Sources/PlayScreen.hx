@@ -26,7 +26,7 @@ class PlayScreen extends Screen
 			add(crystals[crystals.length-1]);
 		}
 		
-		add(chord = new Chord());
+		add(chord = new Chord(1));
 		add(player = new Player());
 		Scheduler.addTimeTask(function(){for(i in selectedCrystals)Audio.play(Reflect.field(Assets.sounds, Crystal.valueToNotes[i]));},2,5,0);
 	}
@@ -74,7 +74,8 @@ class PlayScreen extends Screen
 			trace(selectedCrystals);
 			trace(chord.notes);
 		}
-	}	
+	}
+		
 	public function doObjectsOverlap(object1:Object, object2:Object):Bool
 	{
 		var topLeftX1:Float = object1.width >= 0 ? object1.x : object1.x + object1.width;
