@@ -27,7 +27,7 @@ class Text
 		}
 		else
 		{
-			this.font = Assets.fonts.OpenSans;
+			this.font = Assets.fonts.OAG;
 		}
 		if(color != null)
 		{
