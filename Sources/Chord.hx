@@ -9,6 +9,7 @@ class Chord extends Object
 {
 	public var notes:Array<Int>;
 	private var difficulty:Int;
+	private var tasks:Array<Int> = [];
 	public function new (difficulty:Int = 1)
 	{
 		super();
@@ -24,9 +25,9 @@ class Chord extends Object
 			if(notes.indexOf(randomInt) == -1)
 			{
 				notes.push(randomInt);
-				Scheduler.addTimeTask(function(){
+				tasks.push(Scheduler.addTimeTask(function(){
 					Audio.play(Reflect.field(Assets.sounds, Crystal.valueToNotes[randomInt]));
-				},1,5,0);
+				},1,5,0)); 
 			}
 		}
 		notes.sort(function(a, b):Int {
@@ -36,6 +37,7 @@ class Chord extends Object
 			});
 
 	}
+
 	public override function removed():Void 
 	{
 
@@ -43,6 +45,10 @@ class Chord extends Object
 	
 	public override function destroy()
 	{
+		for(task in tasks)
+		{
+			Scheduler.removeTimeTask(task);
+		}
 		super.destroy();	
 	}
 	

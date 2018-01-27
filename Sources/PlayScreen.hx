@@ -15,6 +15,7 @@ class PlayScreen extends Screen
 	var crystals:Array<Crystal>;
 	var chord:Chord;
 	var player:Player;
+	public static var level:Int = 0;
 	public override function init ()
 	{
 		super.init();
@@ -26,9 +27,14 @@ class PlayScreen extends Screen
 			add(crystals[crystals.length-1]);
 		}
 		
-		add(chord = new Chord(1));
+		add(chord = new Chord(Math.floor(level/3)+1));
 		add(player = new Player());
-		Scheduler.addTimeTask(function(){for(i in selectedCrystals)Audio.play(Reflect.field(Assets.sounds, Crystal.valueToNotes[i]));},2,5,0);
+		Scheduler.addTimeTask(function(){
+			for(i in selectedCrystals)
+			{
+				crystals[i].play();
+			}
+		},2,5,0);
 	}
 
 	public override function update()
@@ -40,42 +46,65 @@ class PlayScreen extends Screen
 			{
 				if(doObjectsOverlap(i, player))
 				{
-					if(selectedCrystals.indexOf(i.value) == -1)
-					{
-						selectedCrystals.push(i.value);
-					}
-					else
-					{
-						selectedCrystals.remove(i.value);
-					}
-					i.select();
-					selectedCrystals.sort(function(a, b):Int {
-								if (a < b) return -1;
-								else if (a > b) return 1;
-								return 0;
-								});
-					if(selectedCrystals.length == chord.notes.length)
-					{
-						var bWin:Bool = true;
-						for(j in selectedCrystals)
-						{
-							if(chord.notes.indexOf(j) == -1)
-							{
-								bWin = false;
-							}
-						}
-						if(bWin)
-						{
-							trace('i win');
-						}
-					}
+					selectCrystal(i.value);
 				}
 			}
-			trace(selectedCrystals);
-			trace(chord.notes);
+		}
+		else if(Keyboard.isPressed(KeyCode.One))
+		{
+			selectCrystal(0);
+		}
+		else if(Keyboard.isPressed(KeyCode.Two))
+		{
+			selectCrystal(1);				
+		}
+		else if(Keyboard.isPressed(KeyCode.Three))
+		{
+			selectCrystal(2);				
+		}
+		else if(Keyboard.isPressed(KeyCode.Four))
+		{
+			selectCrystal(3);			
+		}
+		else if(Keyboard.isPressed(KeyCode.Five))
+		{
+			selectCrystal(4);			
+		}
+		else if(Keyboard.isPressed(KeyCode.Six))
+		{
+			selectCrystal(5);			
+		}
+		else if(Keyboard.isPressed(KeyCode.Seven))
+		{
+			selectCrystal(6);			
+		}
+		selectedCrystals.sort(function(a, b):Int {
+					if (a < b) return -1;
+					else if (a > b) return 1;
+					return 0;
+					});
+		if(selectedCrystals.length == chord.notes.length)
+		{
+			var bWin:Bool = selectedCrystals.length >= 1;
+			for(j in selectedCrystals)
+			{
+				if(chord.notes.indexOf(j) == -1)
+				{
+					bWin = false;
+				}
+			}
+			if(bWin)
+			{
+				newLevel();
+			}
+			else
+			{
+				trace('selected' + selectedCrystals);
+				trace('chord' + chord.notes);
+			}
 		}
 	}
-		
+
 	public function doObjectsOverlap(object1:Object, object2:Object):Bool
 	{
 		var topLeftX1:Float = object1.width >= 0 ? object1.x : object1.x + object1.width;
@@ -94,5 +123,35 @@ class PlayScreen extends Screen
 			return false;
 		}
 		return true;
+	}
+
+	public function selectCrystal(index:Int)
+	{
+		if(selectedCrystals.indexOf(index) == -1)
+		{
+			selectedCrystals.push(index);
+			for(crystal in selectedCrystals)
+			{
+				crystals[crystal].play();
+			}
+		}
+		else
+		{
+			selectedCrystals.remove(index);
+		}
+		crystals[index].select();
+	}
+
+	public function newLevel()
+	{
+		trace('i win');
+		for(i in selectedCrystals)
+		{
+			crystals[i].select();
+		}
+		chord.destroy();
+		add(chord = new Chord(Math.floor(level/3)+1));
+		selectedCrystals = [];
+		level++;
 	}
 }

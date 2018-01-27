@@ -42,6 +42,17 @@ class Crystal extends Object
 
 	public function select()
 	{
+		var p = cast(graphic, Polygon);
+		var tempX = p.points[1].x;
+		p.points[1].x = p.points[1].y;
+		p.points[1].y = tempX;
+	}
+
+	public function play()
+	{
 		Audio.play(Reflect.field(Assets.sounds, valueToNotes[value]));
+		var p = cast(graphic, Polygon);
+		p.color = kha.Color.Magenta;
+		kha.Scheduler.addTimeTask(function(){p.color = kha.Color.Green;},.5,0,0);
 	}
 }
