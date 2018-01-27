@@ -21,25 +21,6 @@ class Crystal extends Object
 		graphic = new Polygon([new Vector2(20,20),new Vector2(0,20),new Vector2(0,0)],kha.Color.Green,true,value/10+.3);
 	}
 
-	public override function added():Void 
-	{
-		trace(value);
-	}
-	public override function removed():Void 
-	{
-
-	}
-	
-	public override function destroy()
-	{
-		super.destroy();	
-	}
-	
-	public override function update()
-	{
-		super.update();
-	}
-
 	public function select()
 	{
 		var p = cast(graphic, Polygon);

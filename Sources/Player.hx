@@ -8,7 +8,6 @@ import kha.input.KeyCode;
 
 class Player extends Object
 {
-	
 	public override function added():Void 
 	{
 		x = 50;
@@ -30,7 +29,7 @@ class Player extends Object
 	public override function update()
 	{
 		super.update();
-		
+
 		if(Keyboard.isHeld(KeyCode.D))
 		{
 			x += 1;
