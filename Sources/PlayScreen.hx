@@ -7,6 +7,7 @@ import kha.input.KeyCode;
 import kha.audio1.Audio;
 import kha.Assets;
 import kha.Scheduler;
+import util.TextObject;
 
 
 class PlayScreen extends Screen
@@ -15,6 +16,7 @@ class PlayScreen extends Screen
 	var crystals:Array<Crystal>;
 	var chord:Chord;
 	var player:Player;
+	var text:TextObject;
 	public static var level:Int = 0;
 	public override function init ()
 	{
@@ -35,10 +37,13 @@ class PlayScreen extends Screen
 				crystals[i].play();
 			}
 		},2,5,0);
+		add(text = new TextObject('test',0,0,16));
+		
 	}
 
 	public override function update()
 	{
+		text.content = "1";
 		super.update();
 		if(Keyboard.isPressed(KeyCode.Space))
 		{

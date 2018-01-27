@@ -9,7 +9,7 @@ class Button extends Object
 {
 	public static var buttons:Array<Button> = [];
 	public var background:Sprite;
-	public var text:Text;
+	public var text:TextObject;
 	//public var clickRegion:FlxSprite;
 	
 	public var click:Int->Int->Int->Void;
@@ -18,8 +18,8 @@ class Button extends Object
 	{
 		background = backgroundSprite;
 		super(x,y,background);
-		//background.z = 10000000;
-		text = new Text(textString, Math.round(x + background.width/10), Math.round(y + background.height/10),Math.round(height*.66));
+		
+		text = new TextObject(textString, Math.round(x + background.width/10), Math.round(y + background.height/10),Math.round(height*.66));
 		Sdg.screen.add(this);
 		this.click = click;
 		var t = new haxe.Timer(1000);

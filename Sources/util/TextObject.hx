@@ -3,12 +3,12 @@ import kha.graphics2.Graphics;
 import kha.Color;
 import kha.Font;
 import kha.Assets;
+import sdg.Object;
+import sdg.graphics.text.Text;
 
-class Text
+class TextObject extends Object
 {
-	public static var texts:Array<Text> = [];
-	public var x:Float;
-	public var y:Float;
+	public static var texts:Array<TextObject> = [];
 	public var fontSize:Int;
 	public var content:String;
 	public var font:Font;
@@ -17,10 +17,11 @@ class Text
 	public function new(text:String, x:Float = 0, y:Float = 0, size:Int = 16, ?font:Font, ?color:Color)
 	{
 		content = text;
-		this.x = x;
-		this.y = y;
 		fontSize = size;
+
 		texts.push(this);
+
+
 		if(font != null)
 		{
 			this.font = font;
@@ -29,6 +30,7 @@ class Text
 		{
 			this.font = Assets.fonts.OAG;
 		}
+		super(x,y, new Text(content, this.font, fontSize));
 		if(color != null)
 		{
 			this.color = color;
@@ -39,12 +41,11 @@ class Text
 		}
 	}
 
-	public function render(graphics: Graphics)
+	public override function update()
 	{
-		graphics.color = color;
-		graphics.font = font;
-		graphics.fontSize = fontSize;
-		graphics.drawString(content, x, y);
+		super.update();
+
+		//cast(graphic, Text).text = content;
 	}
 
 	public function kill()
