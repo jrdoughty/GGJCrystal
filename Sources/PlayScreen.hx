@@ -78,6 +78,12 @@ class PlayScreen extends Screen
 		{
 			selectCrystal(6);			
 		}
+		
+		if(Keyboard.isPressed(KeyCode.T))
+		{
+			trace('selected' + selectedCrystals);
+			trace('chord' + chord.notes);
+		}
 		selectedCrystals.sort(function(a, b):Int {
 					if (a < b) return -1;
 					else if (a > b) return 1;
@@ -96,11 +102,6 @@ class PlayScreen extends Screen
 			if(bWin)
 			{
 				newLevel();
-			}
-			else
-			{
-				trace('selected' + selectedCrystals);
-				trace('chord' + chord.notes);
 			}
 		}
 	}

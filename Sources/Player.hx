@@ -30,6 +30,7 @@ class Player extends Object
 	public override function update()
 	{
 		super.update();
+		
 		if(Keyboard.isHeld(KeyCode.D))
 		{
 			x += 1;
