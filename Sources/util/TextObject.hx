@@ -45,7 +45,11 @@ class TextObject extends Object
 	{
 		super.update();
 
-		//cast(graphic, Text).text = content;
+		var t = cast(graphic, Text);
+
+		t.text = content;
+		t.color = color;
+		t.fontSize = fontSize;
 	}
 
 	public function kill()

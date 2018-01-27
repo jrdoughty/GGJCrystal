@@ -8,7 +8,9 @@ import kha.audio1.Audio;
 import kha.Assets;
 import kha.Scheduler;
 import util.TextObject;
-
+//import util.Button;
+import kha.Assets;
+import sdg.graphics.Sprite;
 
 class PlayScreen extends Screen
 {
@@ -17,15 +19,24 @@ class PlayScreen extends Screen
 	var chord:Chord;
 	var player:Player;
 	var text:TextObject;
+	//var b:Button;
 	public static var level:Int = 0;
 	public override function init ()
 	{
 		super.init();
 		crystals = [];
 		selectedCrystals = [];
+		var imgs = Assets.images;
+		var assets = [imgs.indigo3,
+			imgs.cyan3,
+			imgs.green1,
+			imgs.yellow2,
+			imgs.orange1, 
+			imgs.amber3,
+			imgs.red1];
 		for(i in 0...7)
 		{
-			crystals.push(new Crystal(i));
+			crystals.push(new Crystal(i, new Sprite(assets[i])));
 			add(crystals[crystals.length-1]);
 		}
 		
@@ -38,12 +49,12 @@ class PlayScreen extends Screen
 			}
 		},2,5,0);
 		add(text = new TextObject('test',0,0,16));
-		
+		//add(b = new Button(50,50,50,50,new sdg.graphics.Sprite(Assets.images)));
 	}
 
 	public override function update()
 	{
-		text.content = "1";
+		text.content = level+"";
 		super.update();
 		if(Keyboard.isPressed(KeyCode.Space))
 		{

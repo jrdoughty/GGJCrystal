@@ -32,19 +32,19 @@ class Player extends Object
 
 		if(Keyboard.isHeld(KeyCode.D))
 		{
-			x += 1;
+			x += 3;
 		}
 		if(Keyboard.isHeld(KeyCode.A))
 		{
-			x -= 1;
+			x -= 3;
 		}
 		if(Keyboard.isHeld(KeyCode.W))
 		{
-			y -= 1;
+			y -= 3;
 		}
 		if(Keyboard.isHeld(KeyCode.S))
 		{
-			y += 1;
+			y += 3;
 		}
 	}
 

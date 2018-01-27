@@ -5,35 +5,48 @@ import sdg.graphics.shapes.Polygon;
 import kha.math.Vector2;
 import kha.audio1.Audio;
 import kha.Assets;
+import sdg.graphics.Sprite;
 
 class Crystal extends Object
 {
 	public var value:Int = -1;
 	public static var valueToNotes:Array<String> = ["C","D","E","F","G","A","B"];
-
-	public function new(value = 0)
+	public var sprite:Sprite;
+	public function new(value = 0, sprite:Sprite)
 	{
 		super();
-		x = value * 40;
-		height = 20;
-		width = 20;
+		x = value * 100;
+		height = 100;
+		width = 100;
 		this.value = value;
-		graphic = new Polygon([new Vector2(20,20),new Vector2(0,20),new Vector2(0,0)],kha.Color.Green,true,value/10+.3);
+		graphic = sprite;
+		this.sprite = sprite;
+		sprite.scaleX = 100/sprite.width;
+		sprite.scaleY = 100/sprite.height;
+		this.sprite.color.B = .9;
+		this.sprite.color.R = .9;
+		this.sprite.color.G = .9;
+		this.sprite.color.A = .7;
 	}
 
 	public function select()
 	{
-		var p = cast(graphic, Polygon);
-		var tempX = p.points[1].x;
-		p.points[1].x = p.points[1].y;
-		p.points[1].y = tempX;
+		if(this.sprite.color.A != 1)
+			this.sprite.color.A = 1;
+		else
+			this.sprite.color.A =.7;
 	}
 
 	public function play()
 	{
 		Audio.play(Reflect.field(Assets.sounds, valueToNotes[value]));
-		var p = cast(graphic, Polygon);
-		p.color = kha.Color.Magenta;
-		kha.Scheduler.addTimeTask(function(){p.color = kha.Color.Green;},.5,0,0);
+		this.sprite.color.B = 1;
+		this.sprite.color.R = 1;
+		this.sprite.color.G = 1;
+		kha.Scheduler.addTimeTask(function(){
+			this.sprite.color.B = .9;
+			this.sprite.color.R = .9;
+			this.sprite.color.G = .9;
+			},.5,0,0);
 	}
 }
