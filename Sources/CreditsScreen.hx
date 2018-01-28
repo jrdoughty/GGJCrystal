@@ -29,7 +29,7 @@ class CreditsScreen extends Screen
 
 		//add(text = new TextObject('test',0,0,100));
 
-		add(new Button(0,0,360,200,new Sprite(Assets.images.button),"Play Again",function(a:Int,b:Int,c:Int){sdg.Sdg.switchScreen('Play');}));
+		add(new Button(280,500,360,200,new Sprite(Assets.images.button),"Play Again",function(a:Int,b:Int,c:Int){sdg.Sdg.switchScreen('Play');}));
 	}
 
 	public override function update()

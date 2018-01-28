@@ -60,6 +60,9 @@ class PlayScreen extends Screen
 	{
 		super.update();
 		text.content = level+"";
+		bg.graphic.color.B = .5 + ((level+1)/20);
+		bg.graphic.color.R = .5 + ((level+1)/20);
+		bg.graphic.color.G = .5 + ((level+1)/20);
 		if(util.ButtonManager.the.buttonsActive)
 		{
 			if(Keyboard.isPressed(KeyCode.One))
@@ -101,9 +104,6 @@ class PlayScreen extends Screen
 
 	public function selectCrystal(index:Int)
 	{
-		//bg.graphic.color.B = .5 + (level+1/20);
-		//bg.graphic.color.R = .5 + (level+1/20);
-		//bg.graphic.color.G = .5 + (level+1/20);
 		if(selectedCrystals.indexOf(index) == -1)
 		{
 			selectedCrystals.push(index);

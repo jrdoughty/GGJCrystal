@@ -69,7 +69,7 @@ class Chord extends Button
 			play();
 			tasks.push(Scheduler.addTimeTask(function(){
 				ButtonManager.the.buttonsActive = true;
-			},2,0,0)); 
+			},1.5,0,0)); 
 		},2.25,0,1)); 
 	}
 
