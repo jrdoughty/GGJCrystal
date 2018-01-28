@@ -1,6 +1,7 @@
 package util;
 
 import kha.Font;
+import sdg.Graphic;
 import sdg.graphics.Sprite;
 import sdg.Sdg;
 import sdg.Object;
@@ -8,19 +9,27 @@ import sdg.Object;
 class Button extends Object
 {
 	public static var buttons:Array<Button> = [];
-	public var background:Sprite;
+	public var background:Graphic;
 	public var text:TextObject;
 	//public var clickRegion:FlxSprite;
 	
 	public var click:Int->Int->Int->Void;
 
-	public function new(x:Float, y:Float, width:Int, height:Int, backgroundSprite:Sprite, textString:String, click:Int->Int->Int->Void,?fontSize:Int)
+	public function new(x:Float, y:Float, width:Int, height:Int, backgroundSprite:Graphic, textString:String, click:Int->Int->Int->Void,?fontSize:Int)
 	{
 		background = backgroundSprite;
 		super(x,y,background);
-		
-		text = new TextObject(textString, Math.round(x + background.width/10), Math.round(y + background.height/10),Math.round(height*.66));
+		this.width = width;
+		this.height = height;
+		if(Type.getClass(backgroundSprite) == Sprite)
+		{
+			var s = cast(backgroundSprite, Sprite);
+			s.scaleX = width/s.width;
+			s.scaleY = height/s.height;
+		}
+		text = new TextObject(textString, x+Math.round(width/10), y+Math.round(height/2),Math.round(height*.25));
 		Sdg.screen.add(this);
+		Sdg.screen.add(text);
 		this.click = click;
 		var t = new haxe.Timer(1000);
 		t.run = function(){buttons.push(this);t.stop();};

@@ -21,13 +21,14 @@ class PlayScreen extends Screen
 	var crystals:Array<Crystal>;
 	var chord:Chord;
 	var text:TextObject;
+	var bg:Object;
 	//var b:Button;
 	public static var level:Int = 0;
 	public override function init ()
 	{
 		level = 0;
 		super.init();
-		var bg:Object = new Object(0, 0, new Sprite(Assets.images.background));//
+		bg = new Object(0, 0, new Sprite(Assets.images.background));//
 		add(bg);
 		crystals = [];
 		selectedCrystals = [];
@@ -51,7 +52,7 @@ class PlayScreen extends Screen
 				crystals[i].play();
 			}
 		},2,5,0);
-		add(text = new TextObject('test',50,50,100));
+		add(text = new TextObject('1',50,50,100));
 		//add(b = new Button(50,50,50,50,new sdg.graphics.Sprite(Assets.images)));
 	}
 
@@ -98,28 +99,11 @@ class PlayScreen extends Screen
 		}
 	}
 
-	public function doObjectsOverlap(object1:Object, object2:Object):Bool
-	{
-		var topLeftX1:Float = object1.width >= 0 ? object1.x : object1.x + object1.width;
-		var topLeftY1:Float = object1.height >= 0 ? object1.y : object1.y + object1.height;
-		var bottomRightX1:Float = object1.width >= 0 ? object1.x + object1.width : object1.x;
-		var bottomRightY1:Float = object1.height >= 0 ? object1.y + object1.height : object1.y;
-		
-
-		var topLeftX2:Float = object2.width >= 0 ? object2.x : object2.x + object2.width;
-		var topLeftY2:Float = object2.height >= 0 ? object2.y : object2.y + object2.height;
-		var bottomRightX2:Float = object2.width >= 0 ? object2.x + object2.width : object2.x;
-		var bottomRightY2:Float = object2.height >= 0 ? object2.y + object2.height : object2.y;
-		
-		if (topLeftX1 > bottomRightX2 || topLeftX2 > bottomRightX1 || topLeftY1 > bottomRightY2 || topLeftY2 > bottomRightY1)
-		{
-			return false;
-		}
-		return true;
-	}
-
 	public function selectCrystal(index:Int)
 	{
+		//bg.graphic.color.B = .5 + (level+1/20);
+		//bg.graphic.color.R = .5 + (level+1/20);
+		//bg.graphic.color.G = .5 + (level+1/20);
 		if(selectedCrystals.indexOf(index) == -1)
 		{
 			selectedCrystals.push(index);
@@ -156,22 +140,22 @@ class PlayScreen extends Screen
 
 	public function newLevel()
 	{
-		for(i in selectedCrystals)
-		{
-			crystals[i].deselect();
-		}
-		chord.difficulty = Math.floor(level/3)+1;
-		if(chord.difficulty > 3)
-			chord.difficulty = 3;
 		if(level < 9)
 		{
+			for(i in selectedCrystals)
+			{
+				crystals[i].deselect();
+			}
+			chord.difficulty = Math.floor(level/3)+1;
+			if(chord.difficulty > 3)
+				chord.difficulty = 3;
 			chord.reset();
 			selectedCrystals = [];
 			level++;
 		}
 		else
 		{
-			trace('i win');
+			sdg.Sdg.switchScreen('Credits');
 		}
 	}
 }

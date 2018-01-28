@@ -26,7 +26,7 @@ class Crystal extends Button
 		sprite.scaleX = 100/sprite.width;
 		sprite.scaleY = 100/sprite.height;
 		this.sprite.color.A = .3;
-		super(x,y, width, height, sprite,"",function(a:Int, b:Int, c:Int){delegate();});
+		super(x,y, 100, 100, sprite,"",function(a:Int, b:Int, c:Int){delegate();});
 		height = 100;
 		width = 100;
 	}

@@ -22,7 +22,7 @@ class Chord extends Button
 		sprite = new Sprite(kha.Assets.images.rainbow);
 		graphic = sprite;
 		sprite.alpha = .9;
-		super(x,y,0,0,sprite,"",play);
+		super(x,y,sprite.width,sprite.height,sprite,"",play);
 		width = sprite.width;
 		height = sprite.height;
 	}

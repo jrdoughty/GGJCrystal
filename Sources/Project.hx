@@ -23,7 +23,8 @@ class Project {
 		var engine = new Engine(960, 720, false, true, 60);
 		engine.enable(KEYBOARD | MOUSE | GAMEPAD | DELTA);
 		
-		Sdg.addScreen('Play', new PlayScreen(), true);
+		Sdg.addScreen('Play', new PlayScreen(),true);
+		Sdg.addScreen('Credits', new CreditsScreen());
 
 		Audio.play(Assets.sounds.sandhammaren1, true);
 
