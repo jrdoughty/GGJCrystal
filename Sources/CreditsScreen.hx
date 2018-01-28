@@ -31,7 +31,7 @@ class CreditsScreen extends Screen
 
 		add(new Button(280,500,360,200,new Sprite(Assets.images.button),"   Play Again",function(a:Int,b:Int,c:Int){sdg.Sdg.switchScreen('Play');
 		Button.clear();}));
-		text = new TextObject("Developed by David Drum and John Doughty. You activated the crystals " + PlayScreen.activations + "times and solved 10 sets of notes.",30,30,60,800,null, Color.Black);
+		text = new TextObject("Developed by David Drum and John Doughty. You activated the crystals " + PlayScreen.activations + " times and solved 10 sets of notes.",30,30,60,800,null, Color.Black);
 		text.width = 600;
 		add(text);
 	}

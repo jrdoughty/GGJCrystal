@@ -27,6 +27,11 @@ class Chord extends Button
 		height = sprite.height;
 	}
 	
+	public override function added()
+	{
+		reset();
+	}
+
 	public function reset()
 	{
 		for(task in tasks)

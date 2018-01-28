@@ -30,6 +30,7 @@ class PlayScreen extends Screen
 	public override function init ()
 	{
 		level = 0;
+		activations = 0;
 		super.init();
 		bg = new Object(0, 0, new Sprite(Assets.images.background));//
 		add(bg);

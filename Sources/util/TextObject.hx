@@ -28,7 +28,7 @@ class TextObject extends Object
 		}
 		else
 		{
-			this.font = Assets.fonts.SteaFont;
+			this.font = Assets.fonts.Lovers;
 		}
 		super(x,y, new Text(content, this.font, fontSize, boxeWidth));
 		if(color != null)
