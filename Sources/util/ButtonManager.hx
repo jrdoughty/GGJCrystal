@@ -7,6 +7,7 @@ class ButtonManager
 {
 
 	public static var the(get, null):ButtonManager;
+	public var buttonsActive:Bool = true;
 
 	private static function get_the()
 	{
@@ -24,6 +25,7 @@ class ButtonManager
 
 	public function down(mButton:Int, x:Int, y:Int)
 	{
+		if(buttonsActive)
 		for(i in Button.buttons)
 		{
 			if(i != null && i.visible && 

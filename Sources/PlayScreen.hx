@@ -142,13 +142,17 @@ class PlayScreen extends Screen
 			for(crystal in selectedCrystals)
 			{
 				crystals[crystal].play();
+				crystals[index].select();
 			}
 		}
-		else
+		if(chord.notes.indexOf(index) == -1)
 		{
-			selectedCrystals.remove(index);
+			for(i in selectedCrystals)
+			{
+				crystals[i].select();
+			}
+			selectedCrystals = [];
 		}
-		crystals[index].select();
 	}
 
 	public function newLevel()
