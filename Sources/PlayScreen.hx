@@ -157,12 +157,12 @@ class PlayScreen extends Screen
 		else
 		{
 			sdg.Sdg.switchScreen('Credits');
+			Button.clear();
 		}
 	}
 	
 	public override function destroy():Void
 	{
 		super.destroy();
-		Button.clear();
 	}	
 }
