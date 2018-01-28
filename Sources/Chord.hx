@@ -9,10 +9,10 @@ import sdg.graphics.Sprite;
 class Chord extends Object
 {
 	public var notes:Array<Int>;
-	private var difficulty:Int;
+	public var difficulty:Int;
 	private var tasks:Array<Int> = [];
 	public var sprite:Sprite;
-	public function new (difficulty:Int = 1)
+	public function new (difficulty:Int = 0)
 	{
 		super();
 		this.difficulty = difficulty;
@@ -25,6 +25,25 @@ class Chord extends Object
 
 	public override function added():Void 
 	{
+		reset();
+	}
+
+	public override function removed():Void 
+	{
+
+	}
+	
+	public override function destroy()
+	{
+		super.destroy();	
+	}
+	
+	public function reset()
+	{
+		for(task in tasks)
+		{
+			Scheduler.removeTimeTask(task);
+		}
 		notes = [];
 		while(notes.length<difficulty)
 		{
@@ -46,24 +65,8 @@ class Chord extends Object
 			else if (a > b) return 1;
 			return 0;
 			});
-
 	}
 
-	public override function removed():Void 
-	{
-
-	}
-	
-	public override function destroy()
-	{
-		for(task in tasks)
-		{
-			Scheduler.removeTimeTask(task);
-		}
-		super.destroy();	
-		sdg.Sdg.screen.remove(this);
-	}
-	
 	public override function update()
 	{
 		super.update();

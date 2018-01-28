@@ -19,8 +19,6 @@ class Crystal extends Button
 		x = 20 + value * 135;
 		y = 600 - Math.abs(value-3)*100;
 		
-		height = 100;
-		width = 100;
 		this.value = value;
 		graphic = sprite;
 		this.sprite = sprite;
@@ -31,6 +29,8 @@ class Crystal extends Button
 		this.sprite.color.G = .9;
 		this.sprite.color.A = .7;
 		super(x,y, width, height, sprite,"",function(a:Int, b:Int, c:Int){delegate();});
+		height = 100;
+		width = 100;
 	}
 
 	public function select()

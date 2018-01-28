@@ -26,9 +26,9 @@ class ButtonManager
 	{
 		for(i in Button.buttons)
 		{
-			if(i.background != null && i.background.visible && 
-			i.background.x <= x &&i.background.x + i.background.width >= x && 
-			i.background.y <= y &&i.background.y + i.background.height >= y)
+			if(i != null && i.visible && 
+			i.x <= x &&i.x + i.width >= x && 
+			i.y <= y &&i.y + i.height >= y)
 			{
 				i.click(mButton, x, y);
 				break;

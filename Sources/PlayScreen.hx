@@ -11,19 +11,23 @@ import util.TextObject;
 //import util.Button;
 import kha.Assets;
 import sdg.graphics.Sprite;
+import kha.math.Vector2;
+import sdg.graphics.shapes.Polygon;
+import kha.Color;
 
 class PlayScreen extends Screen
 {
 	var selectedCrystals:Array<Int>;
 	var crystals:Array<Crystal>;
 	var chord:Chord;
-	var player:Player;
 	var text:TextObject;
 	//var b:Button;
 	public static var level:Int = 0;
 	public override function init ()
 	{
 		super.init();
+		var bg:Object = new Object(0, 0, Polygon.createRectangle(960,720,Color.fromString("#856f37")));//
+		add(bg);
 		crystals = [];
 		selectedCrystals = [];
 		var imgs = Assets.images;
@@ -39,9 +43,7 @@ class PlayScreen extends Screen
 			crystals.push(new Crystal(i, new Sprite(assets[i]),function(){selectCrystal(i);}));
 			add(crystals[crystals.length-1]);
 		}
-		
-		add(chord = new Chord(Math.floor(level/3)+1));
-		add(player = new Player());
+		add(chord = new Chord(1));
 		Scheduler.addTimeTask(function(){
 			for(i in selectedCrystals)
 			{
@@ -56,41 +58,31 @@ class PlayScreen extends Screen
 	{
 		text.content = level+"";
 		super.update();
-		if(Keyboard.isPressed(KeyCode.Space))
-		{
-			for(i in crystals)
-			{
-				if(doObjectsOverlap(i, player))
-				{
-					selectCrystal(i.value);
-				}
-			}
-		}
-		else if(Keyboard.isPressed(KeyCode.One))
+		if(Keyboard.isPressed(KeyCode.One))
 		{
 			selectCrystal(0);
 		}
-		else if(Keyboard.isPressed(KeyCode.Two))
+		if(Keyboard.isPressed(KeyCode.Two))
 		{
 			selectCrystal(1);				
 		}
-		else if(Keyboard.isPressed(KeyCode.Three))
+		if(Keyboard.isPressed(KeyCode.Three))
 		{
 			selectCrystal(2);				
 		}
-		else if(Keyboard.isPressed(KeyCode.Four))
+		if(Keyboard.isPressed(KeyCode.Four))
 		{
 			selectCrystal(3);			
 		}
-		else if(Keyboard.isPressed(KeyCode.Five))
+		if(Keyboard.isPressed(KeyCode.Five))
 		{
 			selectCrystal(4);			
 		}
-		else if(Keyboard.isPressed(KeyCode.Six))
+		if(Keyboard.isPressed(KeyCode.Six))
 		{
 			selectCrystal(5);			
 		}
-		else if(Keyboard.isPressed(KeyCode.Seven))
+		if(Keyboard.isPressed(KeyCode.Seven))
 		{
 			selectCrystal(6);			
 		}
@@ -166,8 +158,8 @@ class PlayScreen extends Screen
 		{
 			crystals[i].select();
 		}
-		chord.destroy();
-		add(chord = new Chord(Math.floor(level/3)+1));
+		chord.difficulty = Math.floor(level/3)+1;
+		chord.reset();
 		selectedCrystals = [];
 		level++;
 	}
