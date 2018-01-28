@@ -7,7 +7,7 @@ class ButtonManager
 {
 
 	public static var the(get, null):ButtonManager;
-
+	public var buttonsActive:Bool = true;
 	private static function get_the()
 	{
 		if(the == null)
@@ -24,14 +24,17 @@ class ButtonManager
 
 	public function down(mButton:Int, x:Int, y:Int)
 	{
-		for(i in Button.buttons)
+		if(buttonsActive)
 		{
-			if(i != null && i.visible && 
-			i.x <= x &&i.x + i.width >= x && 
-			i.y <= y &&i.y + i.height >= y)
+			for(i in Button.buttons)
 			{
-				i.click(mButton, x, y);
-				break;
+				if(i != null && i.visible && 
+				i.x <= x &&i.x + i.width >= x && 
+				i.y <= y &&i.y + i.height >= y)
+				{
+					i.click(mButton, x, y);
+					break;
+				}
 			}
 		}
 	}

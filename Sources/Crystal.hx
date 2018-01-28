@@ -8,6 +8,7 @@ import kha.Assets;
 import sdg.graphics.Sprite;
 import util.Button;
 import haxe.Constraints.Function;
+import kha.Scheduler;
 
 class Crystal extends Button
 {
@@ -24,10 +25,7 @@ class Crystal extends Button
 		this.sprite = sprite;
 		sprite.scaleX = 100/sprite.width;
 		sprite.scaleY = 100/sprite.height;
-		this.sprite.color.B = .9;
-		this.sprite.color.R = .9;
-		this.sprite.color.G = .9;
-		this.sprite.color.A = .7;
+		this.sprite.color.A = .3;
 		super(x,y, width, height, sprite,"",function(a:Int, b:Int, c:Int){delegate();});
 		height = 100;
 		width = 100;
@@ -35,22 +33,17 @@ class Crystal extends Button
 
 	public function select()
 	{
-		if(this.sprite.color.A != 1)
-			this.sprite.color.A = 1;
-		else
-			this.sprite.color.A =.7;
+		this.sprite.color.A = 1;
+	}
+
+	public function deselect()
+	{
+		var t:Int;
+		t = Scheduler.addTimeTask(function(){this.sprite.color.A =.3;Scheduler.removeTimeTask(t);},1,0,0);
 	}
 
 	public function play()
 	{
 		Audio.play(Reflect.field(Assets.sounds, valueToNotes[value]));
-		this.sprite.color.B = 1;
-		this.sprite.color.R = 1;
-		this.sprite.color.G = 1;
-		kha.Scheduler.addTimeTask(function(){
-			this.sprite.color.B = .9;
-			this.sprite.color.R = .9;
-			this.sprite.color.G = .9;
-			},.5,0,0);
 	}
 }

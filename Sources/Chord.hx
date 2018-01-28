@@ -1,12 +1,14 @@
 package;
 
 import sdg.Object;
+import util.Button;
 import kha.audio1.Audio;
 import kha.Assets;
 import kha.Scheduler;
 import sdg.graphics.Sprite;
+import util.ButtonManager;
 
-class Chord extends Object
+class Chord extends Button
 {
 	public var notes:Array<Int>;
 	public var difficulty:Int;
@@ -14,13 +16,15 @@ class Chord extends Object
 	public var sprite:Sprite;
 	public function new (difficulty:Int = 0)
 	{
-		super();
 		this.difficulty = difficulty;
 		x = 400;
 		y = 100;
 		sprite = new Sprite(kha.Assets.images.rainbow);
 		graphic = sprite;
 		sprite.alpha = .9;
+		super(x,y,0,0,sprite,"",play);
+		width = sprite.width;
+		height = sprite.height;
 	}
 
 	public override function added():Void 
@@ -51,13 +55,6 @@ class Chord extends Object
 			if(notes.indexOf(randomInt) == -1)
 			{
 				notes.push(randomInt);
-				tasks.push(Scheduler.addTimeTask(function(){
-					Audio.play(Reflect.field(Assets.sounds, Crystal.valueToNotes[randomInt]));
-					sprite.alpha = 1;
-					Scheduler.addTimeTask(function(){
-					this.sprite.alpha = .9;
-					},.5,0,0);
-				},1,5,0)); 
 			}
 		}
 		notes.sort(function(a, b):Int {
@@ -65,6 +62,31 @@ class Chord extends Object
 			else if (a > b) return 1;
 			return 0;
 			});
+		
+		ButtonManager.the.buttonsActive = false;
+		
+		tasks.push(Scheduler.addTimeTask(function(){
+			play();
+			tasks.push(Scheduler.addTimeTask(function(){
+				ButtonManager.the.buttonsActive = true;
+			},2,0,0)); 
+		},3,0,1)); 
+	}
+
+	public function play(a:Int=null,b:Int=null,c:Int=null)
+	{
+		for(task in tasks)
+		{
+			Scheduler.removeTimeTask(task);
+		}
+		for(i in notes)
+		{
+			Audio.play(Reflect.field(Assets.sounds, Crystal.valueToNotes[i]));
+			sprite.alpha = 1;
+		}
+		tasks.push(Scheduler.addTimeTask(function(){
+			sprite.alpha = .8;
+		},1,5,0)); 
 	}
 
 	public override function update()

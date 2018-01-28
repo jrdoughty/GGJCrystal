@@ -25,8 +25,9 @@ class PlayScreen extends Screen
 	public static var level:Int = 0;
 	public override function init ()
 	{
+		level = 0;
 		super.init();
-		var bg:Object = new Object(0, 0, Polygon.createRectangle(960,720,Color.fromString("#856f37")));//
+		var bg:Object = new Object(0, 0, new Sprite(Assets.images.background));//
 		add(bg);
 		crystals = [];
 		selectedCrystals = [];
@@ -35,8 +36,8 @@ class PlayScreen extends Screen
 			imgs.cyan3,
 			imgs.green1,
 			imgs.yellow2,
-			imgs.orange1, 
 			imgs.amber3,
+			imgs.orange1, 
 			imgs.red1];
 		for(i in 0...7)
 		{
@@ -50,66 +51,49 @@ class PlayScreen extends Screen
 				crystals[i].play();
 			}
 		},2,5,0);
-		add(text = new TextObject('test',0,0,16));
+		add(text = new TextObject('test',50,50,100));
 		//add(b = new Button(50,50,50,50,new sdg.graphics.Sprite(Assets.images)));
 	}
 
 	public override function update()
 	{
-		text.content = level+"";
 		super.update();
-		if(Keyboard.isPressed(KeyCode.One))
+		text.content = level+"";
+		if(util.ButtonManager.the.buttonsActive)
 		{
-			selectCrystal(0);
-		}
-		if(Keyboard.isPressed(KeyCode.Two))
-		{
-			selectCrystal(1);				
-		}
-		if(Keyboard.isPressed(KeyCode.Three))
-		{
-			selectCrystal(2);				
-		}
-		if(Keyboard.isPressed(KeyCode.Four))
-		{
-			selectCrystal(3);			
-		}
-		if(Keyboard.isPressed(KeyCode.Five))
-		{
-			selectCrystal(4);			
-		}
-		if(Keyboard.isPressed(KeyCode.Six))
-		{
-			selectCrystal(5);			
-		}
-		if(Keyboard.isPressed(KeyCode.Seven))
-		{
-			selectCrystal(6);			
-		}
-		
-		if(Keyboard.isPressed(KeyCode.T))
-		{
-			trace('selected' + selectedCrystals);
-			trace('chord' + chord.notes);
-		}
-		selectedCrystals.sort(function(a, b):Int {
-					if (a < b) return -1;
-					else if (a > b) return 1;
-					return 0;
-					});
-		if(selectedCrystals.length == chord.notes.length)
-		{
-			var bWin:Bool = selectedCrystals.length >= 1;
-			for(j in selectedCrystals)
+			if(Keyboard.isPressed(KeyCode.One))
 			{
-				if(chord.notes.indexOf(j) == -1)
-				{
-					bWin = false;
-				}
+				selectCrystal(0);
 			}
-			if(bWin)
+			if(Keyboard.isPressed(KeyCode.Two))
 			{
-				newLevel();
+				selectCrystal(1);				
+			}
+			if(Keyboard.isPressed(KeyCode.Three))
+			{
+				selectCrystal(2);				
+			}
+			if(Keyboard.isPressed(KeyCode.Four))
+			{
+				selectCrystal(3);			
+			}
+			if(Keyboard.isPressed(KeyCode.Five))
+			{
+				selectCrystal(4);			
+			}
+			if(Keyboard.isPressed(KeyCode.Six))
+			{
+				selectCrystal(5);			
+			}
+			if(Keyboard.isPressed(KeyCode.Seven))
+			{
+				selectCrystal(6);			
+			}
+			
+			if(Keyboard.isPressed(KeyCode.T))
+			{
+				trace('selected' + selectedCrystals);
+				trace('chord' + chord.notes);
 			}
 		}
 	}
@@ -142,25 +126,52 @@ class PlayScreen extends Screen
 			for(crystal in selectedCrystals)
 			{
 				crystals[crystal].play();
+				crystals[index].select();
 			}
 		}
-		else
+		selectedCrystals.sort(function(a, b):Int {
+					if (a < b) return -1;
+					else if (a > b) return 1;
+					return 0;
+					});
+		
+		var bWin:Bool = selectedCrystals.length == chord.notes.length;
+		for(j in selectedCrystals)
 		{
-			selectedCrystals.remove(index);
+			if(chord.notes.indexOf(j) == -1)
+			{
+				bWin = false;
+				for(i in selectedCrystals)
+				{
+					crystals[i].deselect();
+				}
+				selectedCrystals = [];
+			}
 		}
-		crystals[index].select();
+		if(bWin)
+		{
+			newLevel();
+		}
 	}
 
 	public function newLevel()
 	{
-		trace('i win');
 		for(i in selectedCrystals)
 		{
-			crystals[i].select();
+			crystals[i].deselect();
 		}
 		chord.difficulty = Math.floor(level/3)+1;
-		chord.reset();
-		selectedCrystals = [];
-		level++;
+		if(chord.difficulty > 3)
+			chord.difficulty = 3;
+		if(level < 9)
+		{
+			chord.reset();
+			selectedCrystals = [];
+			level++;
+		}
+		else
+		{
+			trace('i win');
+		}
 	}
 }
