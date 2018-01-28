@@ -13,7 +13,9 @@ import kha.audio1.Audio;
 import kha.audio1.AudioChannel;
 //import systems.Data;
 
-class Project {
+class Project 
+{
+
 	public function new() {
 		Assets.loadEverything(assetsLoaded);
 	}
@@ -24,9 +26,11 @@ class Project {
 		engine.enable(KEYBOARD | MOUSE | GAMEPAD | DELTA);
 		
 		Sdg.addScreen('Play', new PlayScreen(), true);
+		Sdg.addScreen('Title', new TitleScreen());
 
-		Audio.play(Assets.sounds.sandhammaren1, true);
-
+		var ac = Audio.play(Assets.sounds.sandhammaren1, true);
+		ac.volume = .3;
+		
 		System.notifyOnRender(engine.render);
 		Scheduler.addTimeTask(engine.update, 0, 1 / 60);
 

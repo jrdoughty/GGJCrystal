@@ -51,12 +51,10 @@ class Chord extends Object
 			if(notes.indexOf(randomInt) == -1)
 			{
 				notes.push(randomInt);
+				sprite.alpha = 1;
+				play();
 				tasks.push(Scheduler.addTimeTask(function(){
-					Audio.play(Reflect.field(Assets.sounds, Crystal.valueToNotes[randomInt]));
-					sprite.alpha = 1;
-					Scheduler.addTimeTask(function(){
-					this.sprite.alpha = .9;
-					},.5,0,0);
+					sprite.alpha = .8;
 				},1,5,0)); 
 			}
 		}
@@ -65,6 +63,22 @@ class Chord extends Object
 			else if (a > b) return 1;
 			return 0;
 			});
+	}
+
+	public function play()
+	{
+		for(task in tasks)
+		{
+			Scheduler.removeTimeTask(task);
+		}
+		for(i in notes)
+		{
+			Audio.play(Reflect.field(Assets.sounds, Crystal.valueToNotes[i]));
+			sprite.alpha = 1;
+		}
+		tasks.push(Scheduler.addTimeTask(function(){
+			sprite.alpha = .8;
+		},1,5,0)); 
 	}
 
 	public override function update()

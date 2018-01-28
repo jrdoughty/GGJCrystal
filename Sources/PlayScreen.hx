@@ -35,8 +35,8 @@ class PlayScreen extends Screen
 			imgs.cyan3,
 			imgs.green1,
 			imgs.yellow2,
-			imgs.orange1, 
 			imgs.amber3,
+			imgs.orange1, 
 			imgs.red1];
 		for(i in 0...7)
 		{
@@ -153,14 +153,22 @@ class PlayScreen extends Screen
 
 	public function newLevel()
 	{
-		trace('i win');
 		for(i in selectedCrystals)
 		{
 			crystals[i].select();
 		}
 		chord.difficulty = Math.floor(level/3)+1;
-		chord.reset();
-		selectedCrystals = [];
-		level++;
+		if(chord.difficulty > 3)
+			chord.difficulty = 3;
+		if(level < 9)
+		{
+			chord.reset();
+			selectedCrystals = [];
+			level++;
+		}
+		else
+		{
+			trace('i win');
+		}
 	}
 }
