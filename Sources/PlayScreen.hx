@@ -59,6 +59,7 @@ class PlayScreen extends Screen
 	{
 		super.update();
 		//text.content = level+"";
+		
 		if(util.ButtonManager.the.buttonsActive)
 		{
 			bg.graphic.color.B = .5 + ((level+1)/20);
@@ -98,13 +99,17 @@ class PlayScreen extends Screen
 				trace('selected' + selectedCrystals);
 				trace('chord' + chord.notes);
 			}
+			
+			if(Keyboard.isPressed(KeyCode.Y))
+			{
+				level = 8;
+			}
 		}
 		else
 		{
 			bg.graphic.color.B = .5 + ((level)/20);
 			bg.graphic.color.R = .5 + ((level)/20);
-			bg.graphic.color.G = .5 + ((level+2)/20);
-			if(bg.graphic.color.G > 1) bg.graphic.color.G = 1;
+			bg.graphic.color.G = .5 + ((level+1)/20);
 		}
 	}
 

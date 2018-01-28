@@ -27,7 +27,9 @@ class Project {
 		Sdg.addScreen('Credits', new CreditsScreen());
 		Sdg.addScreen('Title', new TitleScreen(), true);
 
-		Audio.play(Assets.sounds.sandhammaren1, true);
+		var ac = Audio.play(Assets.sounds.sandhammaren1, true);
+
+		ac.volume = .4;
 
 		System.notifyOnRender(engine.render);
 		Scheduler.addTimeTask(engine.update, 0, 1 / 60);

@@ -26,13 +26,11 @@ class CreditsScreen extends Screen
 		super.init();
 		var bg:Object = new Object(0, 0, new Sprite(Assets.images.background));
 		add(bg);
-
-		//add(text = new TextObject('test',0,0,100));
-
-		add(new Button(280,500,360,200,new Sprite(Assets.images.button),"   Play Again",function(a:Int,b:Int,c:Int){sdg.Sdg.switchScreen('Play');
-		Button.clear();}));
-		text = new TextObject("Developed by David Drum and John Doughty. You activated the crystals " + PlayScreen.activations + " times and solved 10 sets of notes.",30,30,60,800,null, Color.Black);
+		text = new TextObject("Developed by David Drum and John Doughty. You activated the crystals " + PlayScreen.activations + " times and solved 10 sets of notes.",80,30,100,760,null, Color.Black);
+		var credits = new TextObject("Additional Credits: ambient sound by inovember: https://soundcloud.com/m-nod   Copyright (c) 2012, TypeSETit, LLC (typesetit@att.net),
+with Reserved Font Name \"Lovers Quarrel\"",80,430,45,760,null, Color.Black);
 		text.width = 600;
 		add(text);
+		add(credits);
 	}
 }

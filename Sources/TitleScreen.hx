@@ -20,6 +20,7 @@ class TitleScreen extends Screen
 {
 
 	var text:TextObject;
+	var title:TextObject;
 	//var b:Button;
 	public override function init ()
 	{
@@ -31,8 +32,24 @@ class TitleScreen extends Screen
 
 		add(new Button(280,500,360,200,new Sprite(Assets.images.button),"  Play",function(a:Int,b:Int,c:Int){sdg.Sdg.switchScreen('Play');
 		Button.clear();}));
-		text = new TextObject("Touch the Crystals to match the notes of the Center Crystal",30,30,60,800,null, Color.Black);
+		title = new TextObject("The Sound of Crystal",230,30,110,800,null, Color.Black);
+		text = new TextObject("Touch the Crystals to match the notes of the Center Crystal",120,230,60,800,null, Color.Black);
 		text.width = 600;
 		add(text);
+		add(title);
+	}
+
+	public override function update()
+	{
+		super.update();
+		//text.content = level+"";
+		
+		if(util.ButtonManager.the.buttonsActive)
+		{
+			if(Keyboard.isPressed(KeyCode.C))
+			{
+				sdg.Sdg.switchScreen('Credits');
+			}
+		}
 	}
 }
