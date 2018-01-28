@@ -14,6 +14,7 @@ import sdg.graphics.Sprite;
 import kha.math.Vector2;
 import sdg.graphics.shapes.Polygon;
 import kha.Color;
+import util.Button;
 
 class PlayScreen extends Screen
 {
@@ -158,4 +159,10 @@ class PlayScreen extends Screen
 			sdg.Sdg.switchScreen('Credits');
 		}
 	}
+	
+	public override function destroy():Void
+	{
+		super.destroy();
+		Button.clear();
+	}	
 }

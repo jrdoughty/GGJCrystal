@@ -42,4 +42,10 @@ class CreditsScreen extends Screen
 	{
 
 	}
+	
+	public override function destroy():Void
+	{
+		super.destroy();
+		Button.clear();
+	}	
 }
