@@ -14,7 +14,7 @@ class TextObject extends Object
 	public var font:Font;
 	public var color:Color;
 
-	public function new(text:String, x:Float = 0, y:Float = 0, size:Int = 16, ?font:Font, ?color:Color)
+	public function new(text:String, x:Float = 0, y:Float = 0, size:Int = 16, boxeWidth:Int = 0, ?font:Font, ?color:Color)
 	{
 		content = text;
 		fontSize = size;
@@ -28,9 +28,9 @@ class TextObject extends Object
 		}
 		else
 		{
-			this.font = Assets.fonts.OAG;
+			this.font = Assets.fonts.SteaFont;
 		}
-		super(x,y, new Text(content, this.font, fontSize));
+		super(x,y, new Text(content, this.font, fontSize, boxeWidth));
 		if(color != null)
 		{
 			this.color = color;

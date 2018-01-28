@@ -23,14 +23,19 @@ class PlayScreen extends Screen
 	var chord:Chord;
 	var text:TextObject;
 	var bg:Object;
+	var playTask:Int;
 	//var b:Button;
 	public static var level:Int = 0;
+	public static var activations:Int = 0;
 	public override function init ()
 	{
 		level = 0;
 		super.init();
 		bg = new Object(0, 0, new Sprite(Assets.images.background));//
 		add(bg);
+		bg.graphic.color.B = .5 + ((level+1)/20);
+		bg.graphic.color.R = .5 + ((level+1)/20);
+		bg.graphic.color.G = .5 + ((level+1)/20);
 		crystals = [];
 		selectedCrystals = [];
 		var imgs = Assets.images;
@@ -47,25 +52,17 @@ class PlayScreen extends Screen
 			add(crystals[crystals.length-1]);
 		}
 		add(chord = new Chord(1));
-		Scheduler.addTimeTask(function(){
-			for(i in selectedCrystals)
-			{
-				crystals[i].play();
-			}
-		},2,5,0);
-		add(text = new TextObject('1',50,50,100));
-		//add(b = new Button(50,50,50,50,new sdg.graphics.Sprite(Assets.images)));
 	}
 
 	public override function update()
 	{
 		super.update();
-		text.content = level+"";
-		bg.graphic.color.B = .5 + ((level+1)/20);
-		bg.graphic.color.R = .5 + ((level+1)/20);
-		bg.graphic.color.G = .5 + ((level+1)/20);
+		//text.content = level+"";
 		if(util.ButtonManager.the.buttonsActive)
 		{
+			bg.graphic.color.B = .5 + ((level+1)/20);
+			bg.graphic.color.R = .5 + ((level+1)/20);
+			bg.graphic.color.G = .5 + ((level+1)/20);
 			if(Keyboard.isPressed(KeyCode.One))
 			{
 				selectCrystal(0);
@@ -101,12 +98,20 @@ class PlayScreen extends Screen
 				trace('chord' + chord.notes);
 			}
 		}
+		else
+		{
+			bg.graphic.color.B = .5 + ((level)/20);
+			bg.graphic.color.R = .5 + ((level)/20);
+			bg.graphic.color.G = .5 + ((level+2)/20);
+			if(bg.graphic.color.G > 1) bg.graphic.color.G = 1;
+		}
 	}
 
 	public function selectCrystal(index:Int)
 	{
 		if(selectedCrystals.indexOf(index) == -1)
 		{
+			activations += 1;
 			selectedCrystals.push(index);
 			for(crystal in selectedCrystals)
 			{
@@ -158,6 +163,7 @@ class PlayScreen extends Screen
 		{
 			sdg.Sdg.switchScreen('Credits');
 			Button.clear();
+			chord.end();
 		}
 	}
 	

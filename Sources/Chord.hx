@@ -26,21 +26,6 @@ class Chord extends Button
 		width = sprite.width;
 		height = sprite.height;
 	}
-
-	public override function added():Void 
-	{
-		reset();
-	}
-
-	public override function removed():Void 
-	{
-
-	}
-	
-	public override function destroy()
-	{
-		super.destroy();	
-	}
 	
 	public function reset()
 	{
@@ -72,6 +57,14 @@ class Chord extends Button
 			},1.5,0,0)); 
 		},2.25,0,1)); 
 	}
+	
+	public function end()
+	{
+		for(task in tasks)
+		{
+			Scheduler.removeTimeTask(task);
+		}
+	}
 
 	public function play(a:Int=null,b:Int=null,c:Int=null)
 	{
@@ -87,11 +80,6 @@ class Chord extends Button
 		tasks.push(Scheduler.addTimeTask(function(){
 			sprite.alpha = .8;
 		},1,5,0)); 
-	}
-
-	public override function update()
-	{
-		super.update();
 	}
 
 }

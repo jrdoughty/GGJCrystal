@@ -24,7 +24,8 @@ class Project {
 		engine.enable(KEYBOARD | MOUSE | GAMEPAD | DELTA);
 		
 		Sdg.addScreen('Play', new PlayScreen());
-		Sdg.addScreen('Credits', new CreditsScreen(), true);
+		Sdg.addScreen('Credits', new CreditsScreen());
+		Sdg.addScreen('Title', new TitleScreen(), true);
 
 		Audio.play(Assets.sounds.sandhammaren1, true);
 

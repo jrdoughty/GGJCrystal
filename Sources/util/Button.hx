@@ -27,7 +27,7 @@ class Button extends Object
 			s.scaleX = width/s.width;
 			s.scaleY = height/s.height;
 		}
-		text = new TextObject(textString, x+Math.round(width/10), y+Math.round(height/2.3),Math.round(height*.2));
+		text = new TextObject(textString, x+Math.round(width/10), y+Math.round(height/2.5),Math.round(height*.3));
 		Sdg.screen.add(this);
 		Sdg.screen.add(text);
 		this.click = click;
